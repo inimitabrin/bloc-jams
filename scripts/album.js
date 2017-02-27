@@ -28,6 +28,20 @@ var albumMarconi = {
      ]
  };
 
+ var albumCats = {
+     title: 'My Cats',
+     artist: 'Brin B',
+     label: 'homerecords',
+     year: '1994',
+     albumArtUrl: 'assets/images/album_covers/03.png',
+     songs: [
+         { title: 'Gigi', duration: '4:00' },
+         { title: 'Bilbo Baggins', duration: '3:50' },
+         { title: 'Cashmere', duration: '2:50'},
+         { title: 'Jasmine/Star', duration: '3:30' },
+     ]
+ };
+
  var createSongRow = function(songNumber, songName, songLength) {
      var template =
         '<tr class="album-view-song-item">'
@@ -40,12 +54,13 @@ var albumMarconi = {
      return template;
  };
 
- var setCurrentAlbum = function(album) {
-    var albumTitle = document.getElementsByClassName('album-view-title')[0];
+ var albumTitle = document.getElementsByClassName('album-view-title')[0];
      var albumArtist = document.getElementsByClassName('album-view-artist')[0];
      var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
      var albumImage = document.getElementsByClassName('album-cover-art')[0];
      var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
+
+ var setCurrentAlbum = function(album) {
      albumTitle.firstChild.nodeValue = album.title;
      albumArtist.firstChild.nodeValue = album.artist;
      albumReleaseInfo.firstChild.nodeValue = album.year + ' ' + album.label;
@@ -58,4 +73,13 @@ var albumMarconi = {
  
  window.onload = function() {
      setCurrentAlbum(albumPicasso);
+     var index = 1;
+     var albums = [albumPicasso, albumMarconi, albumCats];
+     albumImage.addEventListener("click", function() {
+        setCurrentAlbum(albums[index]);
+        index++;
+        if (index == albums.length) {
+          index = 0;
+        }
+     });
  };
